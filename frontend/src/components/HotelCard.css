@@ -1,0 +1,71 @@
+.hotel-card-fixed {
+  width: 90% !important;
+  max-width: 1000px !important;
+  margin: 0 auto 20px !important;
+
+  display: flex !important;
+  flex-direction: row !important;
+
+  background: white !important;
+  border: 2px solid #c59b52 !important;
+  border-radius: 14px !important;
+
+  overflow: hidden !important;
+}
+
+.hotel-card-fixed-image {
+  width: 260px !important;
+  min-width: 260px !important;
+  height: 220px !important;
+  object-fit: cover !important;
+}
+
+.hotel-card-fixed-info {
+  flex: 1 !important;
+  padding: 20px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  background: #fffdf9 !important;
+}
+
+.hotel-card-fixed-info h3 {
+  color: #3b1f2b !important;
+  font-size: 22px !important;
+  margin: 0 0 10px !important;
+}
+
+.hotel-card-fixed-price {
+  color: #a06f2c !important;
+}
+
+.hotel-card-fixed-description {
+  color: #6f6259 !important;
+}
+
+.hotel-card-fixed-actions {
+  margin-top: auto !important;
+  display: flex !important;
+  gap: 10px !important;
+  justify-content: flex-end !important;
+}
+
+.hotel-card-fixed-actions button {
+  padding: 8px 18px !important;
+  border-radius: 7px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+}
+
+.hotel-card-fixed-actions button:first-child {
+  background: #3b1f2b !important;
+  color: white !important;
+  border: 1px solid #3b1f2b !important;
+}
+
+.hotel-card-fixed-actions button:last-child {
+  background: #fffdf9 !important;
+  color: #8b4f4f !important;
+  border: 1px solid #8b4f4f !important;
+}

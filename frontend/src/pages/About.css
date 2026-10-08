@@ -1,0 +1,267 @@
+
+.about-page {
+  min-height: 100vh;
+  background: #fffaf3;
+  color: #3b1f2b;
+}
+
+.about-hero {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 30px;
+  background: #3b1f2b;
+  box-sizing: border-box;
+}
+
+.about-hero-content {
+  max-width: 850px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.about-subtitle {
+  margin: 0 0 18px;
+  color: #d4af6a;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.about-hero-content h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 58px;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.about-hero-content h1::after {
+  content: "";
+  display: block;
+  width: 55px;
+  height: 2px;
+  margin: 20px auto 22px;
+  background: #c59b52;
+  border-radius: 10px;
+}
+
+.about-hero-content > p:last-child {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #f5eee7;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.about-story {
+  padding: 85px 30px;
+  background: #ffffff;
+}
+
+.about-story-content {
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-label {
+  margin: 0 0 10px;
+  color: #8b6328;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+}
+
+.about-story-content h2,
+.about-section-heading h2,
+.about-promise-content h2 {
+  margin: 0 0 20px;
+  color: #3b1f2b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.about-story-content h2::after,
+.about-section-heading h2::after,
+.about-promise-content h2::after {
+  content: "";
+  display: block;
+  width: 45px;
+  height: 2px;
+  margin: 14px auto 20px;
+  background: #c59b52;
+  border-radius: 10px;
+}
+
+.about-story-content p:not(.about-label) {
+  margin: 0 auto 16px;
+  max-width: 760px;
+  color: #8b7969;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.about-why {
+  padding: 85px 30px;
+  background: #fffaf3;
+}
+
+.about-section-heading {
+  max-width: 850px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.about-features {
+  width: min(1150px, 94%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.about-feature-card {
+  padding: 30px 22px;
+  background: #fffdf9;
+  border: 1px solid #eee4d8;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(59, 31, 43, 0.06);
+  transition: 0.25s ease;
+}
+
+.about-feature-card:hover {
+  transform: translateY(-5px);
+  border-color: #c59b52;
+  box-shadow: 0 12px 30px rgba(59, 31, 43, 0.12);
+}
+
+.about-feature-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff8ed;
+  border: 1px solid #ead7bd;
+  font-size: 25px;
+}
+
+.about-feature-card h3 {
+  margin: 0 0 10px;
+  color: #3b1f2b;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.about-feature-card p {
+  margin: 0;
+  color: #8b7969;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.about-promise {
+  padding: 90px 30px;
+  background: #3b1f2b;
+}
+
+.about-promise-content {
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-promise-content .about-label {
+  color: #d4af6a;
+}
+
+.about-promise-content h2 {
+  color: #ffffff;
+}
+
+.about-promise-content p:last-child {
+  margin: 0;
+  color: #eadfd2;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+@media (max-width: 1000px) {
+  .about-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-hero-content h1 {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 700px) {
+  .about-page {
+    padding-top: 65px;
+  }
+
+  .about-hero {
+    min-height: 430px;
+    padding: 55px 20px;
+  }
+
+  .about-hero-content h1 {
+    font-size: 40px;
+  }
+
+  .about-hero-content > p:last-child {
+    font-size: 14px;
+  }
+
+  .about-story,
+  .about-why,
+  .about-promise {
+    padding: 65px 20px;
+  }
+
+  .about-story-content h2,
+  .about-section-heading h2,
+  .about-promise-content h2 {
+    font-size: 30px;
+  }
+
+  .about-features {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    min-height: 390px;
+  }
+
+  .about-hero-content h1 {
+    font-size: 34px;
+  }
+
+  .about-subtitle {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .about-story-content h2,
+  .about-section-heading h2,
+  .about-promise-content h2 {
+    font-size: 27px;
+  }
+
+  .about-feature-card {
+    padding: 25px 18px;
+  }
+}
+
