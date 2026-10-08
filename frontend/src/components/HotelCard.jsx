@@ -25,7 +25,7 @@ function HotelCard({ hotel, onEdit, onDelete }) {
       {/* IMAGE */}
 
       <img
-        src={`http://localhost:5000${hotel.image}`}
+        src={hotel.image}
         alt={hotel.title}
         style={{
           width: "260px",
