@@ -1,4 +1,3 @@
-
 const express = require("express");
 const { Pool } = require("pg");
 const multer = require("multer");
@@ -6,7 +5,15 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const dns = require("dns");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 require("dotenv").config();
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 console.log("THIS IS MY HOTEL SERVER");
 console.log("GEOCODE VERSION");
@@ -22,21 +29,15 @@ console.log("CORS MIDDLEWARE LOADED");
 app.use(express.json());
 
 app.use("/uploads", express.static("uploads"));
-
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    connectionString: process.env.DATABASE_URL
 });
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads/");
-    },
-
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "savi-hotels",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"]
     }
 });
 
@@ -87,11 +88,11 @@ app.post(
                     : [];
 
             const galleryImages = req.files?.gallery
-                ? req.files.gallery.map((file, index) => ({
-                    image: `/uploads/${file.filename}`,
-                    type: galleryTypes[index] || "Other"
-                }))
-                : [];
+    ? req.files.gallery.map((file, index) => ({
+        image: file.path,
+        type: galleryTypes[index] || "Other"
+    }))
+    : [];
 
             const highlightsArray = highlights
                 ? highlights
@@ -187,7 +188,7 @@ app.post(
                 });
             }
 
-            const image = `/uploads/${mainImage.filename}`;
+           const image = mainImage.path;
 
             const breakfastIncludedValue =
                 breakfast_included === "true";
@@ -379,9 +380,9 @@ app.put(
 
             const imageFile = req.files?.image?.[0];
 
-            const imagePath = imageFile
-                ? `/uploads/${imageFile.filename}`
-                : existingHotel.rows[0].image;
+           const imagePath = imageFile
+    ? imageFile.path
+    : existingHotel.rows[0].image;
 
             const galleryFiles = req.files?.gallery || [];
 
@@ -395,9 +396,9 @@ app.put(
                         : [];
 
                 galleryImages = galleryFiles.map((file, index) => ({
-                    image: `/uploads/${file.filename}`,
-                    type: galleryTypes[index] || "Other"
-                }));
+    image: file.path,
+    type: galleryTypes[index] || "Other"
+}));
             } else {
                 galleryImages = existingHotel.rows[0].gallery || [];
             }
