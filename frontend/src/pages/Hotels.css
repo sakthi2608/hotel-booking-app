@@ -150,6 +150,7 @@
   .hotel-grid {
     grid-template-columns: 1fr;
   }
+  
 
   .hotel-card img {
     height: 190px;

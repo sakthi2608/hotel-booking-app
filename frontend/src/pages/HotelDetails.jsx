@@ -39,7 +39,7 @@ function HotelDetails() {
   const [roomPreferenceDone, setRoomPreferenceDone] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/hotels/${id}`)
+      fetch(`https://savi-hotel-backend.onrender.com/api/hotels/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setHotel(data);
@@ -61,7 +61,7 @@ function HotelDetails() {
     );
   }
 
-  const hotelImage = `http://localhost:5000${hotel.image}`;
+  const hotelImage = hotel.image;
 
   const roomTypes = Array.isArray(hotel.room_types)
     ? hotel.room_types
@@ -121,7 +121,7 @@ function HotelDetails() {
                 return (
                   <div className="small-image" key={index}>
                     <img
-                      src={`http://localhost:5000${image}`}
+                      src={image}
                       alt={`${hotel.title} ${type}`}
                     />
                     <span>{type}</span>

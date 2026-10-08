@@ -139,9 +139,8 @@ function HotelList() {
   async function confirmDelete() {
     try {
       await axios.delete(
-        `http://localhost:5000/api/hotels/${deleteId}`
-      );
-
+  `https://savi-hotel-backend.onrender.com/api/hotels/${deleteId}`
+);
       setHotels((currentHotels) =>
         currentHotels.filter(
           (hotel) => hotel.id !== deleteId

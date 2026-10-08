@@ -338,7 +338,7 @@ function AddHotel() {
     locationTimer.current = setTimeout(async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/location-suggestions",
+          "https://savi-hotel-backend.onrender.com/api/location-suggestions",
           {
             method: "POST",
             headers: {
@@ -542,8 +542,8 @@ function AddHotel() {
       );
 
       const url = editHotel
-        ? `http://localhost:5000/api/hotels/${editHotel.id}`
-        : "http://localhost:5000/api/hotels";
+        ? `https://savi-hotel-backend.onrender.com/api/hotels/${editHotel.id}`
+        : "https://savi-hotel-backend.onrender.com/api/hotels";
 
       const method = editHotel ? "PUT" : "POST";
 
@@ -646,7 +646,7 @@ function AddHotel() {
           {editHotel && existingImage && !image && (
             <div className="main-image-preview">
               <img
-                src={`http://localhost:5000${existingImage}`}
+                src={existingImage}
                 alt="Existing hotel"
               />
             </div>
@@ -1146,3 +1146,4 @@ function AddHotel() {
 }
 
 export default AddHotel;
+
