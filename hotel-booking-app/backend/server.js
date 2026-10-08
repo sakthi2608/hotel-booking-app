@@ -1,3 +1,4 @@
+
 const express = require("express");
 const { Pool } = require("pg");
 const multer = require("multer");
@@ -5,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const dns = require("dns");
+require("dotenv").config();
 
 console.log("THIS IS MY HOTEL SERVER");
 console.log("GEOCODE VERSION");
@@ -22,11 +24,10 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
 const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "hotel_booking",
-    password: "root",
-    port: 5432
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 const storage = multer.diskStorage({
@@ -45,7 +46,7 @@ const upload = multer({
 
 pool.query("SELECT NOW()", (err, result) => {
     if (err) {
-        console.log("Database connection failed");
+        console.log("Database connection failed:", err.message);
     } else {
         console.log("Database connected");
     }
@@ -550,6 +551,7 @@ app.get("/api/hotels", async (req, res) => {
             Number(req.query.limit || 6),
             1
         );
+
         const breakfast =
             req.query.breakfast;
 
@@ -665,7 +667,6 @@ app.get("/api/hotels", async (req, res) => {
             offset
         ];
 
-
         const countQuery = `
             SELECT COUNT(*) AS total
             FROM hotels
@@ -690,7 +691,6 @@ app.get("/api/hotels", async (req, res) => {
 
         const totalPages =
             Math.ceil(total / limit) || 1;
-
 
         res.json({
             hotels: result.rows,
