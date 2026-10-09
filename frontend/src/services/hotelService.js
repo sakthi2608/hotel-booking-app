@@ -15,8 +15,8 @@ export function getHotels(
       minPrice: Number(minPrice),
       maxPrice: Number(maxPrice),
       page: Number(page),
-      limit: 6
-    }
+      limit: 6,
+    },
   });
 }
 
