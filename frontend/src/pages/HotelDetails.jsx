@@ -39,19 +39,31 @@ function HotelDetails() {
   const [roomPreferenceDone, setRoomPreferenceDone] = useState(false);
 
   useEffect(() => {
-      fetch(`https://hotel-booking-app-wswq.onrender.com/api/hotels/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setHotel(data);
+  async function loadHotel() {
+    try {
+      const response = await fetch(
+        `https://savi-hotel-backend.onrender.com/api/hotels/${id}`
+      );
 
-        if (Array.isArray(data.room_types) && data.room_types.length > 0) {
-          setSelectedRoom(data.room_types[0]);
-        }
-      })
-      .catch((error) => {
-        console.log("HOTEL DETAILS ERROR:", error);
-      });
-  }, [id]);
+      if (!response.ok) {
+        throw new Error(`Hotel request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      setHotel(data);
+
+      if (Array.isArray(data.room_types) && data.room_types.length > 0) {
+        setSelectedRoom(data.room_types[0]);
+      }
+    } catch (error) {
+      console.error("HOTEL DETAILS ERROR:", error);
+      setHotel(null);
+    }
+  }
+
+  loadHotel();
+}, [id]);
 
   if (!hotel) {
     return (
