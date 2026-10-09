@@ -40,11 +40,16 @@ pool.on("error", (error) => {
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    params: {
+    params: async (req, file) => ({
         folder: "savi-hotels",
-        allowed_formats: ["jpg", "jpeg", "png", "webp"]
-    }
+        resource_type: "image",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"],
+        public_id: `${Date.now()}-${file.originalname
+            .replace(/\.[^/.]+$/, "")
+            .replace(/[^a-zA-Z0-9_-]/g, "-")}`
+    })
 });
+
 
 const upload = multer({
     storage,
