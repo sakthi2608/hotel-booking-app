@@ -338,7 +338,7 @@ function AddHotel() {
     locationTimer.current = setTimeout(async () => {
       try {
         const response = await fetch(
-          "https://savi-hotel-backend.onrender.com/api/location-suggestions",
+          "https://hotel-booking-app-wswq.onrender.com/api/location-suggestions"
           {
             method: "POST",
             headers: {
@@ -542,9 +542,8 @@ function AddHotel() {
       );
 
       const url = editHotel
-        ? `https://savi-hotel-backend.onrender.com/api/hotels/${editHotel.id}`
-        : "https://savi-hotel-backend.onrender.com/api/hotels";
-
+  ? `https://hotel-booking-app-wswq.onrender.com/api/hotels/${editHotel.id}`
+  : "https://hotel-booking-app-wswq.onrender.com/api/hotels";
       const method = editHotel ? "PUT" : "POST";
 
       console.log("URL:", url);

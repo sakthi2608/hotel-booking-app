@@ -39,7 +39,7 @@ function HotelDetails() {
   const [roomPreferenceDone, setRoomPreferenceDone] = useState(false);
 
   useEffect(() => {
-      fetch(`https://savi-hotel-backend.onrender.com/api/hotels/${id}`)
+      fetch(`https://hotel-booking-app-wswq.onrender.com/api/hotels/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setHotel(data);

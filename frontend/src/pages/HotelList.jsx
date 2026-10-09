@@ -139,7 +139,7 @@ function HotelList() {
   async function confirmDelete() {
     try {
       await axios.delete(
-  `https://savi-hotel-backend.onrender.com/api/hotels/${deleteId}`
+  `https://hotel-booking-app-wswq.onrender.com/api/hotels/${deleteId}`
 );
       setHotels((currentHotels) =>
         currentHotels.filter(
