@@ -14,6 +14,11 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
+console.log("Cloudinary check:", {
+  cloudName: !!process.env.CLOUDINARY_CLOUD_NAME,
+  apiKey: !!process.env.CLOUDINARY_API_KEY,
+  apiSecret: !!process.env.CLOUDINARY_API_SECRET
+});
 
 console.log("THIS IS MY HOTEL SERVER");
 console.log("GEOCODE VERSION");
