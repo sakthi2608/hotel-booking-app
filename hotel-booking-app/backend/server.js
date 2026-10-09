@@ -882,8 +882,45 @@ console.log(
     "GEOCODE ROUTE REGISTERED"
 );
 
-app.listen(5000, () => {
-    console.log(
-        "Server running on port 5000"
-    );
-});
+
+async function startServer() {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS hotels (
+                id SERIAL PRIMARY KEY,
+                image TEXT,
+                title TEXT,
+                description TEXT,
+                latitude DOUBLE PRECISION,
+                longitude DOUBLE PRECISION,
+                price NUMERIC,
+                created_at TIMESTAMPTZ DEFAULT NOW(),
+                location TEXT,
+                highlights JSONB DEFAULT '[]'::jsonb,
+                facilities JSONB DEFAULT '[]'::jsonb,
+                gallery JSONB DEFAULT '[]'::jsonb,
+                total_rooms INTEGER,
+                room_type VARCHAR(100),
+                guests_per_room INTEGER,
+                room_types JSONB DEFAULT '[]'::jsonb,
+                reception_number VARCHAR(20),
+                breakfast_included BOOLEAN DEFAULT FALSE,
+                free_cancellation BOOLEAN DEFAULT FALSE,
+                pay_at_hotel BOOLEAN DEFAULT FALSE,
+                room_view VARCHAR(100),
+                house_rules JSONB DEFAULT '[]'::jsonb
+            )
+        `);
+
+        console.log("Hotels table ready");
+
+        app.listen(process.env.PORT || 5000, () => {
+            console.log("Server running");
+        });
+    } catch (error) {
+        console.log("Database setup failed:", error.message);
+        process.exit(1);
+    }
+}
+
+startServer();
