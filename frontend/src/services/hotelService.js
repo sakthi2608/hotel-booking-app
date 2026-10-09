@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API_URL = "https://hotel-booking-app-wswq.onrender.com/api/hotels";
-
 export function getHotels(
   search = "",
   minPrice = 1000,
