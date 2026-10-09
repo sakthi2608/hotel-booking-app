@@ -542,7 +542,73 @@ const id = Number(req.params.id);
 
 
 );
+app.get("/api/hotels", async (req, res) => {
+try {
+const search = String(req.query.search || "").trim();
+const minPrice = Number(req.query.minPrice ?? 0);
+const maxPrice = Number(req.query.maxPrice ?? 1000000);
+const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+const limit = 6;
+const offset = (page - 1) * limit;
 
+    const query = `
+        SELECT * FROM hotels
+        WHERE (
+            COALESCE(title, '') ILIKE $1
+            OR COALESCE(location, '') ILIKE $1
+            OR COALESCE(description, '') ILIKE $1
+        )
+        AND price >= $2 AND price <= $3
+        ORDER BY id DESC
+        LIMIT $4 OFFSET $5
+    `;
+
+    const values = [
+        `%${search}%`,
+        minPrice,
+        maxPrice,
+        limit,
+        offset
+    ];
+
+    const result = await pool.query(query, values);
+
+    const countQuery = `
+        SELECT COUNT(*)::int AS total
+        FROM hotels
+        WHERE (
+            COALESCE(title, '') ILIKE $1
+            OR COALESCE(location, '') ILIKE $1
+            OR COALESCE(description, '') ILIKE $1
+        )
+        AND price >= $2 AND price <= $3
+    `;
+
+    const countResult = await pool.query(countQuery, [
+        `%${search}%`,
+        minPrice,
+        maxPrice
+    ]);
+
+    const total = countResult.rows[0].total;
+
+    res.json({
+        hotels: result.rows,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+    });
+} catch (error) {
+    console.error("GET HOTELS ERROR:", error);
+    res.status(500).json({
+        message: "Failed to fetch hotels",
+        error: error.message
+    });
+}
+
+
+});
 
 
 app.get("/api/hotels/:id", async (req, res) => {
