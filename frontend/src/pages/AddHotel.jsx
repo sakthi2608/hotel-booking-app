@@ -338,7 +338,7 @@ function AddHotel() {
     locationTimer.current = setTimeout(async () => {
       try {
         const response = await fetch(
-          "https://hotel-booking-app-wswq.onrender.com/api/location-suggestions"
+          "https://hotel-booking-app-wswq.onrender.com/api/location-suggestions",
           {
             method: "POST",
             headers: {
