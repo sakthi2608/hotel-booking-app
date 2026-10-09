@@ -302,8 +302,16 @@ function HotelList() {
   }
 
   useEffect(() => {
-    loadHotels("", 1000, 10000, 1);
-  }, []);
+  getHotels("", 0, 1000000, 1)
+    .then((response) => {
+      console.log("HOTEL API RESPONSE:", response.data);
+      setHotels(response.data.hotels || []);
+      setTotalPages(response.data.totalPages || 1);
+    })
+    .catch((error) => {
+      console.log("HOTEL API ERROR:", error);
+    });
+}, []);
 
   useEffect(() => {
     loadHotels(
@@ -315,11 +323,48 @@ function HotelList() {
   }, [page]);
 
   const sortedHotels = applySort(hotels);
-
   const availableHotels = sortedHotels.filter((hotel) => {
-    if (!Array.isArray(hotel.room_types)) {
-      return false;
+  if (!hasSearched) {
+    return true;
+  }
+
+  const roomTypes = Array.isArray(hotel.room_types)
+    ? hotel.room_types
+    : [];
+
+  if (roomTypes.length === 0) {
+    return true;
+  }
+
+  const totalGuests = adults + children;
+
+  const matchingRooms = selectedRoomType
+    ? roomTypes.filter((room) =>
+        typeof room === "string"
+          ? room === selectedRoomType
+          : room.type === selectedRoomType
+      )
+    : roomTypes;
+
+  return matchingRooms.some((room) => {
+    if (typeof room === "string") {
+      return true;
     }
+
+    const availableRooms = Number(
+      room.rooms ?? room.availableRooms ?? 0
+    );
+
+    const guestsPerRoom = Number(
+      room.guestsPerRoom ?? room.guests_per_room ?? 0
+    );
+
+    return (
+      availableRooms >= rooms &&
+      rooms * guestsPerRoom >= totalGuests
+    );
+  });
+});
 
     const totalGuests = adults + children;
 
